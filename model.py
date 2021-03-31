@@ -4,12 +4,12 @@ from sklearn.linear_model import LogisticRegression
 import pickle
 import numpy as np
 
-# Load dataset
+# Carga del dataset
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
 names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']
 dataset = pd.read_csv(filepath_or_buffer=url,header=None,sep=',',names=names)
 
-# Split-out validation dataset
+# Split
 array = dataset.values
 X = array[:,0:4]
 y = array[:,4]
@@ -18,16 +18,5 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random
 classifier = LogisticRegression()
 classifier.fit(X_train,y_train)
 
-# save the model to disk
-pickle.dump(classifier, open('./models/LRClassifier.pkl', 'wb'))
-
-# Model
-loaded_model = pickle.load(open('./models/LRClassifier.pkl', 'rb'))
-
-
-print(X_test[1])
-print(np.array([5.1, 2.5, 3.0, 1.1]).reshape(1,4))
-
-test = loaded_model.predict(np.array([5.1, 2.5, 3.0, 1.1]).reshape(1,4))
-
-print(test[0])
+# Guardar el modelo en la carpeta de modeloes
+pickle.dump(classifier, open('./models/model.pkl', 'wb'))
